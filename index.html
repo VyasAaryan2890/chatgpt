@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <style>
+    /* General reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: black;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar h1 {
+      font-size: 45px;
+      margin-left: 20px;
+    }
+
+    .navbar h1 span {
+      color: red;
+    }
+
+    .navbar ul {
+      display: flex;
+      list-style: none;
+    }
+
+    .navbar ul li {
+      margin: 0 20px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 28px;
+      transition: color 0.3s, transform 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: red;
+      transform: translateY(-5px);
+    }
+
+    /* Hamburger Menu */
+    .menu-icon {
+      display: none;
+      cursor: pointer;
+      color: white;
+      font-size: 30px;
+    }
+
+    /* Hero Section Styling */
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      animation: fadeIn 2s ease-out; /* 2 seconds animation */
+    }
+
+    .hero h1 {
+      font-size: 76px; /* Increased font size */
+    }
+
+    .hero h2 {
+      font-size: 64px; /* Increased font size */
+      margin: 20px 0;
+    }
+
+    .hero button {
+      margin: 15px;
+      padding: 15px 40px; /* Increased button size */
+      font-size: 20px; /* Increased font size */
+      background-color: red;
+      color: white;
+      border: 2px solid red;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hero button:hover {
+      background-color: white;
+      color: red;
+      border-color: white;
+    }
+
+    /* Skill Section */
+    .skills {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .skills h1 {
+      font-size: 76px; /* Increased font size */
+      margin-bottom: 40px;
+    }
+
+    .skills .skill-box {
+      display: inline-block;
+      background-color: black;
+      color: white;
+      margin: 20px;
+      border: 2px solid red;
+      padding: 20px;
+      text-align: center;
+      width: 300px;
+      border-radius: 10px;
+      transition: transform 2s ease;
+      opacity: 0;
+      transform: translateY(50px); /* Initial position for animation */
+    }
+
+    .skills .skill-box.visible {
+      opacity: 1;
+      transform: translateY(0); /* Final position after scroll */
+      transition: opacity 2s ease, transform 2s ease;
+    }
+
+    .skills .skill-box h2 {
+      font-size: 40px;
+    }
+
+    .skills .skill-box p {
+      font-size: 40px;
+    }
+
+    .skills .skill-box button {
+      margin-top: 20px;
+      padding: 12px 40px; /* Increased width of More button */
+      font-size: 18px;
+      background-color: white;
+      color: black;
+      border: 2px solid red;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 2s ease;
+    }
+
+    .skills .skill-box button:hover {
+      background-color: red;
+      color: white;
+      border-color: white;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+      .navbar ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+        background-color: black;
+        box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.3);
+        text-align: center;
+      }
+
+      .navbar ul.active {
+        display: block;
+      }
+
+      .menu-icon {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 48px; /* Adjusted font size for mobile */
+      }
+
+      .hero h2 {
+        font-size: 36px; /* Adjusted font size for mobile */
+      }
+
+      .skills .skill-box {
+        width: 240px; /* Adjusted box width for mobile */
+      }
+
+      .skills .skill-box h2,
+      .skills .skill-box p {
+        font-size: 24px; /* Adjusted font size for mobile */
+      }
+    }
+
+    /* Animation for Hero Section */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Scroll Animation */
+    .scroll-section {
+      opacity: 0;
+      transform: translateY(150px);
+      transition: all 2s ease;
+    }
+
+    .scroll-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>Port<span>flio</span></h1>
+    <ul id="navbar-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <span class="menu-icon" id="menu-icon">☰</span>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to My Portfolio</h1>
+    <h2>I am Aaryan, Frontend Developer</h2>
+    <button onclick="downloadResume()">Hire Me</button>
+    <button onclick="downloadResume()">Resume</button>
+  </section>
+
+  <!-- Skill Section -->
+  <section class="skills" id="skills">
+    <h1>Skills</h1>
+    <div class="skill-box">
+      <h2>HTML</h2>
+      <p>I have knowledge of HTML</p>
+      <button>More</button> <!-- More button added -->
+    </div>
+    <div class="skill-box">
+      <h2>CSS</h2>
+      <p>I have knowledge of CSS</p>
+      <button>More</button> <!-- More button added -->
+    </div>
+    <div class="skill-box">
+      <h2>JavaScript</h2>
+      <p>I have knowledge of JavaScript</p>
+      <button>More</button> <!-- More button added -->
+    </div>
+    <div class="skill-box">
+      <h2>React JS</h2>
+      <p>I have knowledge of React JS</p>
+      <button>More</button> <!-- More button added -->
+    </div>
+  </section>
+
+  <script>
+    // Toggle navbar on mobile
+    const menuIcon = document.getElementById('menu-icon');
+    const navbarLinks = document.getElementById('navbar-links');
+
+    menuIcon.addEventListener('click', () => {
+      navbarLinks.classList.toggle('active');
+    });
+
+    // Smooth Scroll Animation for Sections
+    const skillBoxes = document.querySelectorAll('.skill-box');
+
+    function onScroll() {
+      const scrollPosition = window.scrollY + window.innerHeight;
+
+      skillBoxes.forEach((box) => {
+        if (scrollPosition >= box.offsetTop - 100) { // Trigger animation when the box is within view
+          box.classList.add('visible');
+        } else {
+          box.classList.remove('visible'); // Remove class to reset animation if the section is out of view
+        }
+      });
+    }
+
+    // Call onScroll on page load and scroll
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('load', onScroll);
+
+    // Function to handle download of resume
+    function downloadResume() {
+      window.location.href = 'path-to-your-resume.pdf'; // Replace with your resume URL
+    }
+  </script>
+
+</body>
+</html>
